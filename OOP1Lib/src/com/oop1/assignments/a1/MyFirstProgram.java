@@ -54,8 +54,9 @@ public class MyFirstProgram {
 	public void echoMessage(){
 		System.out.println("Hello World! Welcome to my first program!\n" +
 							"This program was written by " + mAuthor + ".\n" + 
-							"The assingment was done " + ((mIsGrouped)?IN_GROUP:
-							INDIVIDUALLY) + " on " + mDate + " at " + mTime + 
-							".\n End of Program!");
+							"The assingment was done " + 
+							((mIsGrouped) ? IN_GROUP : INDIVIDUALLY) + 
+							" on " + mDate + " at " + mTime + ".\n" + 
+							"End of Program!");
 	}
 }
