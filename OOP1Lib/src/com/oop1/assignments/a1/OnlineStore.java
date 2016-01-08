@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  * Class which is supposed to emulate an app and music store, using constant
- * prices for both apps and songs. This implimentation asks the user what
+ * prices for both apps and songs. This implementation asks the user what
  * the desired amount of credit is in the main loop.
  * <br><br>This implementation provides features such as
  * <li>Calculating the maximum number of apps which the user can downloaded using 
@@ -124,5 +124,4 @@ public class OnlineStore {
 		
 		return songs;
 	}
-	
 }

@@ -6,7 +6,6 @@
 
 package com.oop1.assignments.a1;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -63,7 +62,7 @@ public class GroundControl {
 				new OnlineStore();
 				break;
 				
-			case EXIT_KEY:							//case: exit program
+			case EXIT_KEY:						//case: exit program
 				System.out.println("Thank you for viewing Assignment 1. Program "
 						+ "will end.");
 				scanner.close();	//save em resources
@@ -76,5 +75,4 @@ public class GroundControl {
 			}
 		}
 	}
-	
 }
