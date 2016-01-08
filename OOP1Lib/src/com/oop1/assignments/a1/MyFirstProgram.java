@@ -22,7 +22,8 @@ public class MyFirstProgram {
 	public final static String INDIVIDUALLY = "individually";
 	public final static String IN_GROUP = "in a group";
 
-	//set of fields which can be later used and possibly altered by classes
+	//set of fields used to store important info about user 
+	//which can be later used and possibly altered by classes
 	//which inherit this class
 	protected String mAuthor, mDate, mTime;
 	protected boolean mIsGrouped;
