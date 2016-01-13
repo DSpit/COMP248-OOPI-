@@ -60,4 +60,13 @@ public class MyFirstProgram {
 							" on " + mDate + " at " + mTime + ".\n" + 
 							"End of Program!");
 	}
+	
+	/**
+	 * Main method in case the teacher decides to be anal and not accept my GroundControl navigation program.
+	 * The assignment is much more unified if the program is launched from GroundControl.
+	 */
+	public static void main(String[] args){
+		(new MyFirstProgram(GroundControl.AUTHOR, "Friday January 8, 2016", "2:45 AM", 
+				false)).echoMessage();
+	}
 }
