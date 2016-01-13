@@ -24,11 +24,11 @@ import java.util.Scanner;
 public class OnlineStore {
 
 	//constant store prices
-	public final static int SONG_PRICE = 7;
-	public final static int APP_PRICE = 3;
+	public final static byte SONG_PRICE = 7;
+	public final static byte APP_PRICE = 3;
 	
 	//field representing user credit
-	protected long credit = 0;
+	protected long mCredit = 0;
 	
 	/**
 	 * Constructor which runs the main subprogram loop where the user
@@ -38,6 +38,7 @@ public class OnlineStore {
 	 */
 	public OnlineStore(){
 		//variable used to store command prompt inputs from user
+		//NOTE that a Scanner is already opened in GroundControl so closing the instance here will interfere with the control program
 		Scanner scanner = new Scanner(System.in);
 		String temp = ""; 	//useful to carry over user input
 		long tempCred;		//used to provide a alterable variable to calculate
@@ -55,7 +56,7 @@ public class OnlineStore {
 			//retrieve input and convert
 			try{
 				temp = scanner.nextLine();
-				credit = Math.abs(Long.parseLong(temp)); 		//attempts to convert
+				mCredit = Math.abs(Long.parseLong(temp)); 		//attempts to convert
 			}catch(NumberFormatException e){
 				//checks if user input exit key
 				if(temp.equals(GroundControl.EXIT_KEY)){
@@ -70,22 +71,22 @@ public class OnlineStore {
 				continue;	//make user try again
 			}
 			
-			System.out.println("With " +  credit + "$ you can:");
-			tempCred = credit; //store original credit value
+			System.out.println("With " +  mCredit + "$ you can:");
+			tempCred = mCredit; //store original credit value
 			
 			//calculate and display amount of apps that can be bought
 			System.out.println("\tPurchase " + this.getNumApps()
-					+ " app(s). This will leave you with " + credit + "$ in"
+					+ " app(s). This will leave you with " + mCredit + "$ in"
 					+ " your account." );
 			
 			//reset credit and calculate number of songs and apps that can be bought
-			credit = tempCred;
+			mCredit = tempCred;
 			System.out.println("\tPurchase " + this.getNumSongs()
 					+ " song(s) and " + + this.getNumApps() + " app(s)."
-					+ " This will leave you with " + credit + "$ in your"
+					+ " This will leave you with " + mCredit + "$ in your"
 					+ "account.\n");
 			
-			credit = tempCred;//reset
+			mCredit = tempCred;//reset
 		}
 	}
 	
@@ -99,10 +100,10 @@ public class OnlineStore {
 	 */
 	public long getNumApps(){
 		//calculate number of apps
-		long apps = credit / APP_PRICE;
+		long apps = mCredit / APP_PRICE;
 		
 		//subtract total price from amount
-		credit -= apps * APP_PRICE;
+		mCredit -= apps * APP_PRICE;
 		
 		return apps;
 	}
@@ -117,10 +118,10 @@ public class OnlineStore {
 	 */
 	public long getNumSongs(){
 		//calculates number of songs
-		long songs = credit / SONG_PRICE;
+		long songs = mCredit / SONG_PRICE;
 		
 		//subtract total price from amount
-		credit -= songs * SONG_PRICE;
+		mCredit -= songs * SONG_PRICE;
 		
 		return songs;
 	}
