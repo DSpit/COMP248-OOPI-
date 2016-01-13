@@ -39,6 +39,7 @@ public class OnlineStore {
 	public OnlineStore(){
 		//variable used to store command prompt inputs from user
 		//NOTE that a Scanner is already opened in GroundControl so closing the instance here will interfere with the control program
+		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		String temp = ""; 	//useful to carry over user input
 		long tempCred;		//used to provide a alterable variable to calculate
