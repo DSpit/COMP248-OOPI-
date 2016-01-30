@@ -21,7 +21,7 @@ public class GroundControl {
 	
 	public final static String AUTHOR = "David Boivin";
 	public final static int ID = 40004941;
-	public final static String EXIT_KEY = "e";
+	public final static String EXIT_KEY = "e", PART1_KEY = "1", PART2_KEY = "2";
 	
 	/**
 	 * This is the main method of the program. It has the highest level of
@@ -34,7 +34,6 @@ public class GroundControl {
 	 */
 	public static void main(String[] args) throws InterruptedException{
 		
-		final String p1 = "1", p2 = "2";
 		Scanner scanner = new Scanner(System.in);
 		
 		//introduction to the program.
@@ -44,20 +43,21 @@ public class GroundControl {
 		while(true){
 			
 			//present options to user
-			System.out.println("\nPlease type [1] to select a1p1 or [2] for "
-					+ "a1p2.\nTo exit please type [e], this will terminate the"
-					+ " program.\nWhen you have made your choice, press [enter]."
-					+ " Only the first character will be considered.");
+			System.out.println("\nPlease type [" + PART1_KEY + "] to select a1p1 "
+					+ "or [" + PART2_KEY + "] for a1p2.\nTo exit please type ["
+					+  EXIT_KEY + "], this will terminate the program.\nWhen you"
+					+ " have made your choice, press [enter]. Only the first word "
+					+ "will be considered (delimited by whitespaces).");
 			
 			//based on user input, decides what actions to perform.
-			switch(scanner.next()){
-			case p1:							//case: part 1 selected
+			switch(scanner.nextLine().trim().toLowerCase()){
+			case PART1_KEY:							//case: part 1 selected
 				System.out.println("\n");
 				(new MyFirstProgram(AUTHOR, "Friday January 8, 2016", "2:45 AM", 
 						false)).echoMessage();
 				break;
 				
-			case p2:							//case: part 2 selected
+			case PART2_KEY:							//case: part 2 selected
 				System.out.println("\n");
 				new OnlineStore();
 				break;
@@ -65,7 +65,7 @@ public class GroundControl {
 			case EXIT_KEY:						//case: exit program
 				System.out.println("Thank you for viewing Assignment 1. Program "
 						+ "will end.");
-				scanner.close();	//save em resources
+				scanner.close();	//XXX save em resources
 				System.exit(0);										//EXIT BRANCH
 				
 			default:							//case: unsupported character

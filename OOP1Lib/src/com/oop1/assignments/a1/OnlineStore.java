@@ -39,30 +39,30 @@ public class OnlineStore {
 	public OnlineStore(){
 		//variable used to store command prompt inputs from user
 		//NOTE that a Scanner is already opened in GroundControl so closing the instance here will interfere with the control program
-		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		String temp = ""; 	//useful to carry over user input
 		long tempCred;		//used to provide a alterable variable to calculate
 		
 		//program introduction
 		System.out.println("Welcome to the AbSynth Online Store.\n"
-				+ "Prices:\n\tSong: 7$\n\tApp: 3$\n");
+				+ "Prices:\n\tSong: "+ SONG_PRICE +"$\n\tApp: " + APP_PRICE + "$\n");
 		
 		//main subprogram loop
 		while(true){
 			//prompt user input
-			System.out.println("Please enter credited amount and press [enter]"
-					+ "or [e] to exit:");
+			System.out.println("Please enter credited amount and press [enter] "
+					+ "or [" + GroundControl.EXIT_KEY + "] to exit:");
 			
 			//retrieve input and convert
 			try{
-				temp = scanner.nextLine();
+				temp = scanner.nextLine().trim().toLowerCase();
 				mCredit = Math.abs(Long.parseLong(temp)); 		//attempts to convert
 			}catch(NumberFormatException e){
 				//checks if user input exit key
 				if(temp.equals(GroundControl.EXIT_KEY)){
 					System.out.println("Thank you for using the AbSynth Online "
 							+ "Store.");
+					scanner.close();  //XXX why does this cause a NoSuchElementException on the scanner in the GroundControl object?
 					break;
 				}
 				
