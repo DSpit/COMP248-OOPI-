@@ -24,8 +24,8 @@ import java.util.Scanner;
 public class OnlineStore {
 
 	//constant store prices
-	public final static byte SONG_PRICE = 7;
-	public final static byte APP_PRICE = 3;
+	public final static int SONG_PRICE = 7;
+	public final static int APP_PRICE = 3;
 	
 	//field representing user credit
 	protected long mCredit = 0;
@@ -39,6 +39,7 @@ public class OnlineStore {
 	public OnlineStore(){
 		//variable used to store command prompt inputs from user
 		//NOTE that a Scanner is already opened in GroundControl so closing the instance here will interfere with the control program
+		@SuppressWarnings("resource")	//handled in GroundControl (closing Scanner in this class would close System.in stream in GroundConrol)
 		Scanner scanner = new Scanner(System.in);
 		String temp = ""; 	//useful to carry over user input
 		long tempCred;		//used to provide a alterable variable to calculate
@@ -62,7 +63,6 @@ public class OnlineStore {
 				if(temp.equals(GroundControl.EXIT_KEY)){
 					System.out.println("Thank you for using the AbSynth Online "
 							+ "Store.");
-					scanner.close();  //XXX why does this cause a NoSuchElementException on the scanner in the GroundControl object?
 					break;
 				}
 				

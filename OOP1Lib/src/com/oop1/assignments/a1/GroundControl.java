@@ -65,7 +65,7 @@ public class GroundControl {
 			case EXIT_KEY:						//case: exit program
 				System.out.println("Thank you for viewing Assignment 1. Program "
 						+ "will end.");
-				scanner.close();	//XXX save em resources
+				scanner.close();	// save em resources
 				System.exit(0);										//EXIT BRANCH
 				
 			default:							//case: unsupported character
