@@ -21,15 +21,35 @@ public class CashRegister{
 
 	public final static String AUTHOR = "David Boivin";
 	public final static int ID = 40004941;
+	
+	public final static int MIN_PRODUCT = 1;
+	public final static int MAX_PRODUCT = 10;
+	public final static int MIN_PRODUCT_COST = 1;
+	public final static int MAX_PRODUCT_COST = 1000;
+	public final static int MIN_GST_PERCENTAGE = 0;
+	public final static int MAX_GST_PERCENTAGE = 14;
+	public final static int MIN_QST_PERCENTAGE = 0;
+	public final static int MAX_QST_PERCENTAGE = 17;
+	
+	private final double fGRate;
+	private final double fQRate;
 
 	private double mSubtotal = 0;
-	private double mGRate;
-	private double mQRate;
 	private int fuckupCount = 0;
 	
 	private Scanner kb = new Scanner(System.in);
 	
 	public CashRegister(){
+		//query the user as to how many products they want to buy
+		
+		
+		//run loop to ask for price of all products
+		
+		//query user for qst and gst
+		
+		//show fuckup count if needed
+		
+		//print receipt 
 		
 		
 		kb.close();
@@ -47,11 +67,11 @@ public class CashRegister{
 	}
 	
 	public double getGST(){
-		return mGRate * mSubtotal;
+		return fGRate * mSubtotal;
 	}
 	
 	public double getQST(){
-		return mQRate* this.getGST();
+		return fQRate* this.getGST();
 	} 
 	
 	/**
@@ -66,7 +86,7 @@ public class CashRegister{
 	 * @return The QST which should be added in the total.
 	 */
 	public double getQST(double gst){
-		return mQRate * (mSubtotal + gst);
+		return fQRate * (mSubtotal + gst);
 	}
 	
 	public double getTotal(){
@@ -74,12 +94,16 @@ public class CashRegister{
 		return mSubtotal + gst + this.getQST(gst);
 	}
 	
+	public double getTotal(double gst, double qst){
+		return mSubtotal + gst + qst;
+	}
+	
 	public static void main(){
 		//introduction to the program.
-		System.out.println("Welcome to Assignment 2\n\tWritten by " + AUTHOR + 
-							"(" + ID + ")\n\n\tOpenning the AbSynth Cash Register...");
+		System.out.printf("Welcome to Assignment 2\n\tWritten by" + AUTHOR + 
+							"(%d8)%n%n%tOpenning the AbSynth Cash Register...", ID);
 		new CashRegister();
 		//conclusion to the program
-		System.out.println("Thank you for using the AbSynth Cash Register, good bye.");
+		System.out.printf("Thank you for using the AbSynth Cash Register, good bye.");
 	}
 }
