@@ -33,7 +33,7 @@ public abstract class Shape {
 	
 	@Override
 	public String toString(){
-		StringBuilder stringShape = new StringBuilder();
+		StringBuilder stringShape = new StringBuilder(mSize*(mSize+1));
 		
 		for(int i = 0; i < mSize; ++i){
 			stringShape.append(this.buildRow(i));
@@ -41,6 +41,19 @@ public abstract class Shape {
 		}
 		
 		return stringShape.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(!(obj instanceof Shape)){
+			return false;
+		}
+		
+		if(((Shape)obj).getSize() == this.getSize()){
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public static StringBuilder spaces(int n){

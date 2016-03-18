@@ -10,14 +10,13 @@ public class GroundControl {
 
 	public static void main(String[] args) {
 		Scanner kb = new Scanner(System.in);
-		String patternChooserString = new String();
-		patternChooserString = GroundControl.buildPatternChooserString();
+		String patternChooserString = GroundControl.buildPatternChooserString();
 		Shape shape = null;
 		
 		System.out.printf("Welcome to %s's Triangle and Diamond Printer%n%n", AUTHOR);
 		
 		while(true){
-			System.out.printf("%s%nPlease choose the pattern you wish to print or %d to quit:", patternChooserString.toString(), QUIT);
+			System.out.printf("%s%nPlease choose the pattern you wish to print or %d to quit:", patternChooserString, QUIT);
 			
 			while(shape == null){
 				switch(kb.nextInt()){
@@ -43,7 +42,7 @@ public class GroundControl {
 					System.exit(0);
 					
 				default:
-					System.out.println("Sorry that wasn't an option, try again:");
+					System.out.print("Sorry that wasn't an option, try again:");
 				}
 				
 			}
@@ -62,7 +61,7 @@ public class GroundControl {
 	}
 	
 	private static String buildPatternChooserString(){
-		StringBuilder s = new StringBuilder();
+		StringBuilder s = new StringBuilder(4*((Shape.DEFAULT+1)*Shape.DEFAULT + 3*(Shape.DEFAULT+1)) + Shape.DEFAULT+1);	//whitespace + ln characters + shapes
 		Shape[] shapes = {new LeftAlignTriangle(), new RightAlignTriangle(),
 				new DiagonalAlignTriangle(), new Diamond()};
 		

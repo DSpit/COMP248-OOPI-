@@ -16,5 +16,18 @@ public class Diamond extends Shape {
 		
 		return s.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(!(obj instanceof Diamond)){
+			return false;
+		}
+		
+		if(((Shape)obj).getSize() == this.getSize()){
+			return true;
+		}
+		
+		return false;
+	}
 
 }
