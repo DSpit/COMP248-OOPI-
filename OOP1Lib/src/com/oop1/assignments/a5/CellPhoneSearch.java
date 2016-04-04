@@ -1,10 +1,131 @@
 package com.oop1.assignments.a5;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class CellPhoneSearch {
+	
+	public final static String AUTHOR = "David Boivin";
+	public final static String ACCEPT = "yes";
+	public final static long ID = 40004941;
+	public final static int ARRAY_SIZE = 10;
+	public final static int FIZZ = 2;
+	public final static int BUZZ = 5;
+	public final static double PRICE_MIN = 200.0;
+	public final static double PRICE_MAX = 1000.0;
+	
+	public final static String[] BRANDS = {"google", "apple", "samsung", "nokia"};
+	
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Scanner kb = new Scanner(System.in);
+		CellPhone[] cellArray = CellPhoneSearch.populateCellArray(ARRAY_SIZE);
+		CellPhone[] returnArray;
+		String searchBrand;
+		double searchPrice;
+		
+		System.out.println(Arrays.toString(cellArray));
+		
+		//introduce the program
+		System.out.printf("Welcome to %s's Cell Phone Search Program%n%n", AUTHOR);
 
+		//prompt user for search parameters
+		System.out.print("Brand to search: ");
+		searchBrand = kb.nextLine();
+		System.out.print("Price to Search: ");
+		searchPrice = kb.nextDouble();
+		kb.nextLine();	//clear buffer
+		System.out.printf("Choose match combinations by entering [%s]: ", ACCEPT);
+		
+		//search array
+		returnArray = CellPhoneSearch.search(cellArray, searchBrand, searchPrice, 
+				kb.nextLine().trim().toLowerCase().equals(ACCEPT));
+		
+		//display results
+		System.out.println("Matching results: ");
+		if(returnArray.length == 0){
+			System.out.println("No matches were found.");
+		}else{
+			int index = 0;
+			while(returnArray[index] != null || index < returnArray.length){
+				System.out.printf("%d) %d%n",index+1, returnArray[index].getSerial());
+				++index;
+			}
+		}
+		
+		kb.close();
+	}
+	
+	public static CellPhone[] search(CellPhone[] array, String brand, double price, boolean matchCombo){
+		CellPhone[] rArray = new CellPhone[array.length];
+		int index = 0;
+		boolean foundBrand;
+		boolean foundPrice;
+		brand = brand.trim().toLowerCase();
+		
+		for(int i = 0; i < array.length; ++i){
+			foundBrand = brand.equals(array[i].getBrand());
+			foundPrice = price == array[i].getPrice();
+			System.out.printf("Brand: %s Price: %s%n", String.valueOf(foundBrand), String.valueOf(foundPrice));
+			System.out.println((foundBrand && foundPrice) || !(matchCombo && !(foundBrand || foundPrice)));
+			
+			//logic wizardry to remove the need for nested ifs
+			if((foundBrand && foundPrice) || (!(matchCombo) || (foundBrand || foundPrice))){		//FIXME
+				rArray[index++] = array[i];
+			}
+		}
+		
+		return rArray;
+	}
+	
+	private static CellPhone[] populateCellArray(int size){
+		CellPhone[] array = new CellPhone[size];
+		//arbitrary cell phones to be used to demonstrate copy constructor
+		CellPhone 	fizzbuzz = new CellPhone("a", -1, (PRICE_MIN + PRICE_MAX) / 2.0),
+					fizz = new CellPhone("b", -2, PRICE_MAX),
+					buzz = new CellPhone("c", -3, PRICE_MIN); 
+		
+		//populate array
+		for(int i = 0; i < array.length; ++i){
+			
+			//use simple fizzbuzz game to keep the population interesting
+			if(CellPhoneSearch.fizzbuzz(i)){
+				array[i] = new CellPhone(fizzbuzz);
+				
+			}else if(CellPhoneSearch.buzz(i)){
+				array[i] = new CellPhone(buzz);
+				
+			}else if(CellPhoneSearch.fizz(i)){
+				array[i] = new CellPhone(fizz);
+				
+			}else{									//case of normal number: generate random cell phone 
+				array[i] = new CellPhone(CellPhoneSearch.getRandomBrand(), 
+										(long)i,
+										CellPhoneSearch.getRandomPrice());
+			}
+		}
+		
+		return array; 
+	}
+	
+	private static boolean fizzbuzz(int index){
+		return CellPhoneSearch.fizz(index) && CellPhoneSearch.buzz(index);
+	}
+	
+	private static boolean fizz(int index){
+		return index % FIZZ == 0;
+	}
+	
+	private static boolean buzz(int index){
+		return index % BUZZ == 0;
+	}
+	
+	private static double getRandomPrice(){
+		return PRICE_MIN + Math.random()*(PRICE_MAX-PRICE_MIN);
+	}
+	
+	private static String getRandomBrand(){
+		return BRANDS[(int)Math.random()*BRANDS.length];
 	}
 
 }
@@ -77,7 +198,7 @@ class CellPhone {
 	 * @param brand New brand name for this phone.
 	 */
 	public void setBrand(String brand){
-		mBrand = brand;
+		mBrand = brand.toLowerCase();
 	}
 	
 	/**
@@ -101,7 +222,7 @@ class CellPhone {
 	public boolean setPrice(double price){
 		//makes sure the price is legal
 		if(price >= 0){
-			mPrice = price;
+			mPrice = ((int)price*100)/100.0;
 			return true;
 		}
 		
@@ -136,7 +257,7 @@ class CellPhone {
 	 */
 	@Override
 	public String toString(){
-		return String.format("%20s%s%n%20s%d%n%20s%.2f$%n", 
+		return String.format("%s%s%n%s%d%n%s%.2f$%n", 
 				"Brand: ", this.getBrand(),
 				"Serial Number: ", this.getSerial(), 
 				"Price: " ,this.getPrice());
