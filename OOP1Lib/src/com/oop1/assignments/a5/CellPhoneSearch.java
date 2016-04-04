@@ -47,7 +47,7 @@ public class CellPhoneSearch {
 			System.out.println("No matches were found.");
 		}else{
 			int index = 0;
-			while(returnArray[index] != null || index < returnArray.length){
+			while(returnArray[index] != null && index < returnArray.length){
 				System.out.printf("%d) %d%n",index+1, returnArray[index].getSerial());
 				++index;
 			}
@@ -67,10 +67,10 @@ public class CellPhoneSearch {
 			foundBrand = brand.equals(array[i].getBrand());
 			foundPrice = price == array[i].getPrice();
 			System.out.printf("Brand: %s Price: %s%n", String.valueOf(foundBrand), String.valueOf(foundPrice));
-			System.out.println((foundBrand && foundPrice) || !(matchCombo && !(foundBrand || foundPrice)));
+			System.out.println((foundBrand && foundPrice) || (!matchCombo || (foundBrand || foundPrice)));
 			
 			//logic wizardry to remove the need for nested ifs
-			if((foundBrand && foundPrice) || (!(matchCombo) || (foundBrand || foundPrice))){		//FIXME
+			if((foundBrand && foundPrice) || (!matchCombo && (foundBrand || foundPrice))){		//FIXME
 				rArray[index++] = array[i];
 			}
 		}
@@ -125,7 +125,7 @@ public class CellPhoneSearch {
 	}
 	
 	private static String getRandomBrand(){
-		return BRANDS[(int)Math.random()*BRANDS.length];
+		return BRANDS[(int)(Math.random()*BRANDS.length)];
 	}
 
 }
