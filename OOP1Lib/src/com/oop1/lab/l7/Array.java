@@ -20,7 +20,7 @@ public class Array {
 		System.out.printf("After Reversal: %s%n", Arrays.toString(array));
 	}
 	
-	
+	 
 	public static void main(String[] args) {
 		int[] test = {1,2,3,4,5,6,7,8,9};
 		Array.reverseArray(test);
