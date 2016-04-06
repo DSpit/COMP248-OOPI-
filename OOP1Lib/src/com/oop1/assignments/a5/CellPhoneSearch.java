@@ -62,8 +62,10 @@ public class CellPhoneSearch {
 			foundPrice = price == array[i].getPrice();
 //			System.out.printf("Brand: %s Price: %s%n", String.valueOf(foundBrand), String.valueOf(foundPrice));		//DEBUG
 //			System.out.println((foundBrand && foundPrice) || (!matchCombo && (foundBrand || foundPrice)));
+
 			
 			//logic wizardry to remove the need for nested ifs
+
 			if((foundBrand && foundPrice) || (!matchCombo && (foundBrand || foundPrice))){
 				rArray[index++] = array[i];
 			}
