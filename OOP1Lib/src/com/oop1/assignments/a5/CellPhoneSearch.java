@@ -16,6 +16,8 @@ public class CellPhoneSearch {
 	public final static int ARRAY_SIZE = 10;
 	public final static int FIZZ = 2;
 	public final static int BUZZ = 5;
+	public final static double PRICE_MIN = 200.0;
+	public final static double PRICE_MAX = 1000.0;
 
 	/**
 	 * The main function of this program designed to test its class' search capabilities
@@ -108,7 +110,7 @@ public class CellPhoneSearch {
 	 * to a fizzbuzz algorithm on the array's index, where each of the fizz, buzz, and fizzbuzz instances are
 	 * used to copy 3 different "default" CellPhones. Any non-fizzy instances generate a random {@link CellPhone} from
 	 * it's default values:
-	 * <br>{@link CellPhone#PRICE_MIN} <= price <= {@link CellPhone#PRICE_MAX}
+	 * <br>{@link #PRICE_MIN} <= price <= {@link #PRICE_MAX}
 	 * <br>brands: {@link CellPhone#BRANDS}
 	 * 
 	 * <br><br>The 3 default {@link CellPhone} are:
@@ -120,10 +122,10 @@ public class CellPhoneSearch {
 	 */
 	private static void populateCellArray(CellPhone[] array){
 		//arbitrary cell phones to be used to demonstrate copy constructor
-		CellPhone 	fizzbuzz = new CellPhone("a", -1, (CellPhone.PRICE_MIN + 
-															CellPhone.PRICE_MAX) / 2.0),
-					fizz = new CellPhone("b", -2, CellPhone.PRICE_MAX),
-					buzz = new CellPhone("c", -3, CellPhone.PRICE_MIN); 
+		CellPhone 	fizzbuzz = new CellPhone("a", -1, (PRICE_MIN + 
+															PRICE_MAX) / 2.0),
+					fizz = new CellPhone("b", -2, PRICE_MAX),
+					buzz = new CellPhone("c", -3, PRICE_MIN); 
 		
 		//populate array
 		for(int i = 0; i < array.length; ++i){
@@ -141,7 +143,7 @@ public class CellPhoneSearch {
 			}else{									//case of normal number: generate random cell phone 
 				array[i] = new CellPhone(CellPhone.getRandomBrand(), 
 										(long)i,
-										CellPhone.getRandomPrice());
+										CellPhone.getRandomPrice(PRICE_MIN, PRICE_MAX));
 			}
 		}
 	}
@@ -192,8 +194,6 @@ public class CellPhoneSearch {
 class CellPhone {
 	
 	public final static String[] BRANDS = {"google", "apple", "samsung", "nokia"};
-	public final static double PRICE_MIN = 200.0;
-	public final static double PRICE_MAX = 1000.0;
 
 	protected String mBrand;
 	protected long mSerial;
@@ -331,7 +331,7 @@ class CellPhone {
 	 * {@link #PIRCE_MAX} inclusively.
 	 * @return A legal value to use as a {@link CellPhone}'s price parameter.
 	 */
-	public static double getRandomPrice(){
-		return PRICE_MIN + Math.random()*(PRICE_MAX-PRICE_MIN);
+	public static double getRandomPrice(double min, double max){
+		return max + Math.random()*(max-min);
 	}
 }
