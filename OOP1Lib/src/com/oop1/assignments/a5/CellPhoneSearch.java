@@ -1,3 +1,9 @@
+// -----------------------------------------------------
+// Assignment 5
+// Question: 3
+// Written by: David Boivin (40004941)
+// -----------------------------------------------------
+
 package com.oop1.assignments.a5;
 
 import java.util.Arrays;
