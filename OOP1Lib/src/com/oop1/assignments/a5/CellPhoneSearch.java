@@ -317,10 +317,20 @@ class CellPhone {
 				"Price: " ,this.getPrice());
 	}
 	
+	/**
+	 * Randomly selects a brand from {@link #BRANDS}
+	 * @return A possible "default" string which can be used 
+	 * 				as a {@link CellPhone}'s brand parameter.
+	 */
 	public static String getRandomBrand(){
 		return BRANDS[(int)Math.random()*BRANDS.length];
 	}
 	
+	/**
+	 * Randomly selects a price within the range of {@link #PRICE_MIN} and 
+	 * {@link #PIRCE_MAX} inclusively.
+	 * @return A legal value to use as a {@link CellPhone}'s price parameter.
+	 */
 	public static double getRandomPrice(){
 		return PRICE_MIN + Math.random()*(PRICE_MAX-PRICE_MIN);
 	}
