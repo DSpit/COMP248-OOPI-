@@ -3,6 +3,11 @@ package com.oop1.assignments.a5;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Implements search functions for the {@link CellPhone} class.
+ * 
+ * @author David Boivin (~AbSynth ~DSpit)
+ */
 public class CellPhoneSearch {
 	
 	public final static String AUTHOR = "David Boivin";
@@ -12,6 +17,14 @@ public class CellPhoneSearch {
 	public final static int FIZZ = 2;
 	public final static int BUZZ = 5;
 
+	/**
+	 * The main function of this program designed to test its class' search capabilities
+	 * by creating and populating a pseudo-randomly generated array of {@link CellPhone}s.
+	 * The program then asks the user for 3 parameters: brand, price, combination match.
+	 * Using the inputs, the program then searches the array for matches using the 
+	 * {@link #search(CellPhone[], String, double, boolean)} and displays the matching cellphone's 
+	 * serial number.
+	 */
 	public static void main(String[] args) {
 		Scanner kb = new Scanner(System.in);
 		CellPhone[] cellArray = new CellPhone[ARRAY_SIZE];
@@ -50,30 +63,61 @@ public class CellPhoneSearch {
 		kb.close();
 	}
 	
+	/**
+	 * Method providing search capabilities through a given array of {@link CellPhone}s by  price and
+	 * brand. Capitalization is irrelevant for the brand, since it is turned into lower case. 
+	 * 
+	 * @param array The input array to search through
+	 * @param brand The brand to search for.
+	 * @param price The price to search for.
+	 * @param matchCombo if <b>true</b> then the search will only return {@link CellPhone}s that 
+	 * 						match both brand and price parameters, while <b>false</b> returns 
+	 * 						{@link CellPhone}s that have either.
+	 * 
+	 * @return An array of {@link CellPhone}s that satisfy the search criteria, dictated by the parameters.
+	 */
 	public static CellPhone[] search(CellPhone[] array, String brand, double price, boolean matchCombo){
 		CellPhone[] rArray = new CellPhone[array.length];
-		int index = 0;
+		int index = 0;	//index to keep track of next available location in rArray
 		boolean foundBrand;
 		boolean foundPrice;
 		brand = brand.trim().toLowerCase();
 		
+		//search through the array
 		for(int i = 0; i < array.length; ++i){
+			//checks main conditions
 			foundBrand = brand.equals(array[i].getBrand());
 			foundPrice = price == array[i].getPrice();
 //			System.out.printf("Brand: %s Price: %s%n", String.valueOf(foundBrand), String.valueOf(foundPrice));		//DEBUG
 //			System.out.println((foundBrand && foundPrice) || (!matchCombo && (foundBrand || foundPrice)));
 
 			
-			//logic wizardry to remove the need for nested ifs
-
+			//logic wizardry to remove the need for nested ifs compounding results according to comboMatch
 			if((foundBrand && foundPrice) || (!matchCombo && (foundBrand || foundPrice))){
-				rArray[index++] = array[i];
+				rArray[index++] = array[i];		//if match then put it in return array
 			}
 		}
 
+		//retrun proper length sized array
 		return Arrays.copyOfRange(rArray, 0, index);
 	}
 	
+	/**
+	 * Private method designed to populate the testing array of this class.
+	 * The Method accepts an array of {@link CellPhone} as input and fills it according
+	 * to a fizzbuzz algorithm on the array's index, where each of the fizz, buzz, and fizzbuzz instances are
+	 * used to copy 3 different "default" CellPhones. Any non-fizzy instances generate a random {@link CellPhone} from
+	 * it's default values:
+	 * <br>{@link CellPhone#PRICE_MIN} <= price <= {@link CellPhone#PRICE_MAX}
+	 * <br>brands: {@link CellPhone#BRANDS}
+	 * 
+	 * <br><br>The 3 default {@link CellPhone} are:
+	 * <br>1} <code>CellPhone("a", -1, (CellPhone.PRICE_MIN + CellPhone.PRICE_MAX) / 2.0)</code>
+	 * <br>2} <code>CellPhone("b", -2, (CellPhone.PRICE_MAX)</code>
+	 * <br>3} <code>CellPhone("c", -3, (CellPhone.PRICE_MIN)</code>
+	 * 
+	 * @param array
+	 */
 	private static void populateCellArray(CellPhone[] array){
 		//arbitrary cell phones to be used to demonstrate copy constructor
 		CellPhone 	fizzbuzz = new CellPhone("a", -1, (CellPhone.PRICE_MIN + 
@@ -102,14 +146,35 @@ public class CellPhoneSearch {
 		}
 	}
 	
+	/**
+	 * Convenience method for fizzbuzz condition, which is both
+	 * {@link #fizz(int)} and the {@link #buzz(int)} must be <b>true</b>. 
+	 * 
+	 * @param index index to check condition agains
+	 * @return <b>true</b> if the index is and instance of fizzbuzz.
+	 */
 	private static boolean fizzbuzz(int index){
 		return CellPhoneSearch.fizz(index) && CellPhoneSearch.buzz(index);
 	}
 	
+	/**
+	 * Convenience method for fizz condition, which is that 
+	 * the index parameter is a multiple of {@link #FIZZ}.
+	 * 
+	 * @param index The index to check the condition against.
+	 * @return <b>true</b> if the index is an instance of fizz.
+	 */
 	private static boolean fizz(int index){
 		return index % FIZZ == 0;
 	}
 	
+	/**
+	 * Convenience method for buzz condition, which is that 
+	 * the index parameter is a multiple of {@link #BUZZ}.
+	 * 
+	 * @param index The index to check the condition against.
+	 * @return <b>true</b> if the index is an instance of buzz.
+	 */
 	private static boolean buzz(int index){
 		return index % BUZZ == 0;
 	}
